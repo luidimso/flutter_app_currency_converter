@@ -41,15 +41,21 @@ class _HomeState extends State<Home> {
   double bitcoin;
 
   void _realValueChanged(String value) {
-    print(value);
+    double real = double.parse(value);
+    dollarController.text = (real / dollar).toStringAsFixed(2);
+    bitcoinController.text = (real / bitcoin).toStringAsFixed(2);
   }
 
   void _dollarValueChanged(String value) {
-    print(value);
+    double dollar = double.parse(value);
+    realController.text = (dollar * this.dollar).toStringAsFixed(2);
+    bitcoinController.text = (dollar * this.dollar / bitcoin).toStringAsFixed(2);
   }
 
   void _bitcoinValueChanged(String value) {
-    print(value);
+    double bitcoin = double.parse(value);
+    realController.text = (bitcoin * this.bitcoin).toStringAsFixed(2);
+    dollarController.text = (bitcoin * this.bitcoin / dollar).toStringAsFixed(2);
   }
 
   @override
@@ -132,7 +138,7 @@ Widget buildTextField(String label, String prefix, TextEditingController control
         color: Colors.amber,
         fontSize: 25
     ),
-    keyboardType: TextInputType.number,
+    keyboardType: TextInputType.numberWithOptions(decimal: true),
   );
 }
 
