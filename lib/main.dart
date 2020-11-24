@@ -33,8 +33,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final realController = TextEditingController();
+  final dollarController = TextEditingController();
+  final bitcoinController = TextEditingController();
+
   double dollar;
   double bitcoin;
+
+  void _realValueChanged(String value) {
+    print(value);
+  }
+
+  void _dollarValueChanged(String value) {
+    print(value);
+  }
+
+  void _bitcoinValueChanged(String value) {
+    print(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,50 +100,11 @@ class _HomeState extends State<Home> {
                         color: Colors.amber,
                         size: 150,
                       ),
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: "Real",
-                          labelStyle: TextStyle(
-                            color: Colors.amber
-                          ),
-                          border: OutlineInputBorder(),
-                          prefixText: "R\$"
-                        ),
-                        style: TextStyle(
-                          color: Colors.amber,
-                          fontSize: 25
-                        ),
-                      ),
+                      buildTextField("Real", "R\$", realController, _realValueChanged),
                       Divider(),
-                      TextField(
-                        decoration: InputDecoration(
-                            labelText: "Dollar",
-                            labelStyle: TextStyle(
-                                color: Colors.amber
-                            ),
-                            border: OutlineInputBorder(),
-                            prefixText: "US\$"
-                        ),
-                        style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 25
-                        ),
-                      ),
+                      buildTextField("Dollar", "US\$", dollarController, _dollarValueChanged),
                       Divider(),
-                      TextField(
-                        decoration: InputDecoration(
-                            labelText: "Bitcoin",
-                            labelStyle: TextStyle(
-                                color: Colors.amber
-                            ),
-                            border: OutlineInputBorder(),
-                            prefixText: "BTC"
-                        ),
-                        style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 25
-                        ),
-                      )
+                      buildTextField("Bitcoin", "BTC", bitcoinController, _bitcoinValueChanged)
                     ],
                   ),
                 );
@@ -137,5 +114,25 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
+
+Widget buildTextField(String label, String prefix, TextEditingController controller, Function valueChanged) {
+  return TextField(
+    controller: controller,
+    onChanged: valueChanged,
+    decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(
+            color: Colors.amber
+        ),
+        border: OutlineInputBorder(),
+        prefixText: prefix
+    ),
+    style: TextStyle(
+        color: Colors.amber,
+        fontSize: 25
+    ),
+    keyboardType: TextInputType.number,
+  );
 }
 
